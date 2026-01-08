@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Menu Liquid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Untuk ikon Instagram -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72, #8e2de2); /* Gradient biru ke ungu */
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        /* Efek asap untuk daya tarik */
+        .smoke {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .smoke::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+        }
+        .smoke::after {
+            content: '';
+            position: absolute;
+            top: 60%;
+            right: 15%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 12s infinite ease-in-out reverse;
+        }
+        .particle1 {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+            animation-delay: 2s;
+        }
+        .particle2 {
+            position: absolute;
+            top: 80%;
+            left: 20%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 18s infinite ease-in-out reverse;
+            animation-delay: 7s;
+        }
+        .particle3 {
+            position: absolute;
+            top: 30%;
+            right: 30%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+            animation-delay: 10s;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.1;
+            }
+            50% {
+                transform: translateY(-50px) scale(1.2);
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.1;
+            }
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: rgb(0 186 190);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .logo {
+            width: 100px; /* Sesuaikan ukuran logo */
+            height: auto;
+            flex-shrink: 0;
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 20px;
+            transition: all 0.3s;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        nav a:hover, nav a.active {
+            color: #00ff88;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #00ff88;
+            width: 200px;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .mobile-menu a {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 5;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .home-content {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .home-content p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+        .instagram-link:hover {
+            color: #00ff88;
+        }
+        .instagram-link i {
+            font-size: 1.5em;
+        }
+        /* Tambahan: Styling untuk logo di home-content */
+        .home-logo {
+            width: 250px; /* Ukuran menyesuaikan kalimat di atas (sekitar 120px untuk proporsi) */
+            aspect-ratio: 0; /* Membuat gambar 1:1 (persegi) */
+            object-fit: cover;
+            border-radius: 10px; /* Konsisten dengan kartu */
+            margin-top: 20px; /* Jarak dari link Instagram */
+            display: block;
+            margin-left: auto;
+            margin-right: auto; /* Tengah */
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px #00f7ff;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px #00f7ff;
+        }
+        .card img {
+            width: 100%;
+            aspect-ratio: 1; /* Membuat gambar 1:1 (persegi) */
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .card h3 {
+            margin: 10px 0;
+            font-size: 1.5em;
+        }
+        .card p {
+            margin: 5px 0;
+        }
+        .stock {
+            color: #00ff88;
+            font-weight: 700;
+        }
+        .out-of-stock {
+            color: #ff4444;
+            font-weight: 700;
+        }
+        #no-results {
+            display: none;
+            text-align: center;
+            font-size: 1.5em;
+            color: #ffaa00;
+            margin-top: 50px;
+            text-shadow: 0 0 10px #00f7ff;
+        }
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            header {
+                padding: 15px;
+            }
+            .search-bar {
+                max-width: 150px; /* Kurangi lebar di mobile untuk menghindari tabrakan */
+                margin: 0 10px;
+            }
+            .search-bar input {
+                padding: 8px; /* Kurangi padding untuk ukuran lebih kecil */
+                font-size: 0.9em;
+            }
+            nav {
+                display: none; /* Sembunyikan nav desktop */
+            }
+            .hamburger {
+                display: flex;
+            }
+            .home-content {
+                margin-top: 50px;
+            }
+            /* Tambahan: Kurangi ukuran logo di mobile */
+            .home-logo {
+                width: 250px; /* Lebih kecil di mobile untuk proporsi */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="smoke">
+        <div class="particle1"></div>
+        <div class="particle2"></div>
+        <div class="particle3"></div>
+    </div>
+    <header>
+        <img src="img/Logo.png" alt="Logo Liquid" class="logo"> <!-- Ganti dengan path logo Anda -->
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Cari liquid...">
+        </div>
+        <nav id="desktop-nav">
+            <a href="#" id="home-link">Order</a>
+            <a href="#" id="menu-link">Daftar Liquid</a>
+        </nav>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#" id="home-mobile">Order</a>
+            <a href="#" id="menu-mobile">Daftar Liquid</a>
+        </div>
+    </header>
+    <div class="container">
+        <!-- Halaman Home -->
+        <div class="page active" id="home-page">
+            <div class="home-content">
+                <p>Order Liquid? Klik & DM Instagram dibawah ini</p>
+                <a href="https://www.instagram.com/three.triii?igsh=NjNxaWE3a2JwejUy" class="instagram-link" target="_blank"> <!-- Ganti username IG dengan yang benar -->
+                    <i class="fab fa-instagram"></i>
+                    @three.triii
+                </a>
+                <!-- Tambahan: Gambar logo di bawah link Instagram -->
+                <img src="img/Logo1.png" alt="Logo Liquid" class="home-logo">
+            </div>
+        </div>
+        <!-- Halaman Menu -->
+        <div class="page" id="menu-page">
+            <h1>Daftar Liquid</h1>
+            <div class="menu-grid" id="menu-grid">
+                <!-- Contoh item menu, ganti dengan data nyata -->
+                <div class="card" data-name="Liquid Strawberry">
+                    <img src="img/Strawberry Cheseecake Original.jpg" alt="Liquid 1">
+                    <h3>Liquid Strawberry Cheseecake Original</h3>
+                    <p>Harga💸: Rp 100.000</p>
+                    <p><i>Nicotine 3mg / 6mg / 9mg / 12mg</i></p>
+                    <p><i><b>Freebase</b> VG 60 / PG 40</i></p>
+                    <p class="stock">Stok: 0</p>
+                </div>
+                <div class="card" data-name="Liquid Mint">
+                    <img src="img/Strawberry Cheseecake Dingin.jpg" alt="Liquid 2">
+                    <h3>Liquid Strawberry Cheseecake Dingin</h3>
+                    <p>Harga💸: Rp 100.000</p>
+                    <p><i>Nicotine 3mg / 6mg / 9mg / 12mg</i></p>
+                    <p><i><b>Freebase</b> VG 60 / PG 40</i></p>
+                    <p class="stock">Stok: 2</p>
+                </div>
+                <div class="card" data-name="Liquid Mango">
+                    <img src="img/Tokyo Lychee Original.jpeg" alt="Liquid 3">
+                    <h3>Liquid Tokyo Lychee Original</h3>
+                    <p>Harga💸: Rp 100.000</p>
+                    <p><i>Nicotine 3mg / 6mg / 9mg / 12mg</i></p>
+                    <p><i><b>Fruity</b> VG 60 / PG 40</i></p>
+                    <p class="stock">Stok: 0</p>
+                </div>
+                <div class="card" data-name="Liquid Mango">
+                    <img src="img/Tokyo Lychee Dingin.jpeg" alt="Liquid 3">
+                    <h3>Liquid Tokyo Lychee Dingin</h3>
+                    <p>Harga💸: Rp 100.000</p>
+                    <p><i>Nicotine 3mg / 6mg / 9mg / 12mg</i></p>
+                    <p><i><b>Fruity</b> VG 60 / PG 40</i></p>
+                    <p class="stock">Stok: 8</p>
+                </div>
+                <div class="card" data-name="Liquid Mango">
+                    <img src="img/Magnum Chocolate Original.jpeg" alt="Liquid 3">
+                    <h3>Liquid Magnum Chocolate Original</h3>
+                    <p>Harga💸: Rp 100.000</p>
+                    <p><i>Nicotine 3mg / 6mg / 9mg / 12mg</i></p>
+                    <p><i><b>Freebase</b> VG 60 / PG 40</i></p>
+                    <p class="stock">Stok: 0</p>
+                </div>
+                <div class="card" data-name="Liquid Mango">
+                    <img src="img/Magnum Chocolate Dingin.jpeg" alt="Liquid 3">
+                    <h3>Liquid Magnum Chocolate Dingin</h3>
+                    <p>Harga💸: Rp 100.000</p>
+                    <p><i>Nicotine 3mg / 6mg / 9mg / 12mg</i></p>
+                    <p><i><b>Freebase</b> VG 60 / PG 40</i></p>
+                    <p class="stock">Stok: 0</p>
+                </div>
+                <!-- Tambahkan lebih banyak kartu sesuai kebutuhan -->
+            </div>
+            <div id="no-results">Mohon maaf liquid tersebut belum ada saat ini</div>
+        </div>
+    </div>
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburger.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Navigasi halaman
+        const homeLink = document.getElementById('home-link');
+        const menuLink = document.getElementById('menu-link');
+        const homeMobile = document.getElementById('home-mobile');
+        const menuMobile = document.getElementById('menu-mobile');
+        const homePage = document.getElementById('home-page');
+        const menuPage = document.getElementById('menu-page');
+        const navLinks = [homeLink, menuLink, homeMobile, menuMobile];
+
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            page.classList.add('active');
+            navLinks.forEach(link => link.classList.remove('active'));
+            if (page === homePage) {
+                homeLink.classList.add('active');
+                homeMobile.classList.add('active');
+            } else if (page === menuPage) {
+                menuLink.classList.add('active');
+                menuMobile.classList.add('active');
+                updateStockColors(); // Update warna stok saat menu page aktif
+            }
+        }
+
+        homeLink.addEventListener('click', () => showPage(homePage));
+        menuLink.addEventListener('click', () => showPage(menuPage));
+        homeMobile.addEventListener('click', () => showPage(homePage));
+        menuMobile.addEventListener('click', () => showPage(menuPage));
+
+        // Fungsi untuk update warna stok berdasarkan nilai
+        function updateStockColors() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const stockElement = card.querySelector('.stock, .out-of-stock');
+                if (stockElement) {
+                    const text = stockElement.textContent;
+                    const match = text.match(/Stok: (\d+)/);
+                    if (match) {
+                        const stock = parseInt(match[1]);
+                        if (stock === 0) {
+                            stockElement.className = 'out-of-stock';
+                            stockElement.textContent = `Stok: ${stock} (Habis)`;
+                        } else {
+                            stockElement.className = 'stock';
+                            stockElement.textContent = `Stok: ${stock}`;
+                        }
+                    }
+                }
+            });
+        }
+
+        // Search functionality (hanya di menu page)
+        const searchInput = document.getElementById('search');
+        const cards = document.querySelectorAll('.card');
+        const noResults = document.getElementById('no-results');
+        searchInput.addEventListener('input', () => {
+            if (!menuPage.classList.contains('active')) return; // Hanya aktif di menu page
+            const query = searchInput.value.toLowerCase().trim();
+            let hasResults = false;
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name').toLowerCase();
+                if (name.includes(query)) {
+                    card.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            if (query && !hasResults) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        });
+
+        // Klik kartu untuk detail (opsional)
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                const name = card.querySelector('h3').textContent;
+                alert(`Detail untuk ${name}: Klik untuk membeli atau info lebih lanjut.`);
+            });
+        });
+    </script>
+</body>
+</html>
